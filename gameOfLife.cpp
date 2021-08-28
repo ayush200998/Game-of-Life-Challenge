@@ -1,19 +1,14 @@
 #include<iostream>
-
+#include "Board.h"
 using namespace std;
 
-class Board{
-    public:
-    int x;
-    int y;
-};
-
-int main() {
+int main(){
     int row, col;
-    cout<<"Enter the Rows and col of the Grid.\n";
-    cin >> row >> col;
-    int grid[row][col];
+    cout<< "Enter number of rows and columns. \n";
+    cin>> row >> col;
     int initialGrid[row][col];
+    int grid[row][col];
+
     // Initialize the Grid.
     for(int i=0; i<row; i++){
         for(int j=0; j<col; j++){
@@ -21,47 +16,48 @@ int main() {
             initialGrid[i][j] = 0;
         }
     }
-
-    // Printing Initial grid.
+    // Printing Initial Grid.
     for(int i=0; i<row; i++){
         for(int j=0; j<col; j++){
             cout<< initialGrid[i][j] << " " ;
         }
         cout<<endl;
-    }
-
-    // Get the co-ordinates from the user.
-    cout<<"How many co-ordinates you want to give ? \n";
+     }
+    
+    cout<< "How much input you want?. \n";
     int max;
-    cin>> max;
+    cin >> max;
+
     Board b[max];
+    cout<< "Enter the values. \n";
+    Board::setValues(max, b);
 
-    cout<< "Enter the Co-Ordinates.\n";
-    // 0 -> Death , 1 -> Life.
+    // User Input. 
     for(int i=0; i<max; i++){
-        cin >> b[i].x >> b[i].y;
-    }
-
-    // Changing the Grid variable with user co-ordinates
-        for(int j=0; j<max; j++){
-            initialGrid[b[j].x][b[j].y] = 1;
-        }
-
-    // Printing the changed grid.
-    for(int i=0; i<row; i++){
-        for(int j=0; j<col; j++){
-            cout<< initialGrid[i][j] << " " ;
-        }
-        cout<<endl;
+        b[i].getValues();
     }
     
-    // Logic to find life and death.
+    // Setting grid values according to user Input.
+    for(int j=0; j<max; j++){
+        initialGrid[b[j].x][b[j].y] = 1;
+    }
+
+    // Printing Changed Grid.
+    for(int i=0; i<row; i++){
+        for(int j=0; j<col; j++){
+            cout<< initialGrid[i][j] << " " ;
+        }
+        cout<<endl;
+    }
+
+    // Logic to find life and death. 
     for(int i=0; i<row; i++){
         for(int j=0; j<col;j++){
             int count = 0;
             // Checking for death. 8 sides to check therefore 8 conditions.
             if(initialGrid[i][j] == 0){
                 // Adjacent Columns
+                cout<< initialGrid[i][j-1] <<endl; 
                 if(initialGrid[i][j-1] == 1 && j!=0){
                     count += 1;                    
                 }
@@ -140,6 +136,7 @@ int main() {
             }
         }
     }
+
     cout<< "Final output is \n";
     // Final Output
     for(int i=0; i<row; i++){
@@ -149,3 +146,5 @@ int main() {
         cout<<endl;
     }
 }
+
+
